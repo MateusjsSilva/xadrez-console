@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace xadrez_console.Entities.tabuleiro
+﻿namespace tabuleiro
 {
     internal class Tabuleiro
     {
+        public int Linhas { get; set; }
+        public int Colunas { get; set; }
+        public Peca[,] pecas;
+
+        public Tabuleiro(int linhas, int colunas)
+        {
+            this.Linhas = linhas;
+            this.Colunas = colunas;
+            pecas = new Peca[linhas, colunas];
+        }
+
+        public Peca GetPeca(int linha, int coluna)
+        {
+            return pecas[linha, coluna];
+        }
     }
 }

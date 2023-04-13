@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace xadrez_console.Entities.tabuleiro
+﻿namespace tabuleiro
 {
-    internal class Cor
+    enum Cor : int
     {
+        Branca = 1,
+        Preta = 2,
+        Amarela = 3,
+        Azul = 4,
+        Vermelha = 5,
+        Verde = 6,
+        Laranja = 7
     }
 }
