@@ -7,21 +7,22 @@
         public int QuantMovimentos { get; protected set; }
         public Tabuleiro Tabuleiro { get; set; }
 
-        public Peca(Tabuleiro tabuleiro, Cor cor)
-        {
+        public Peca(Tabuleiro tabuleiro, Cor cor) {
             this.Posicao = null;
             this.Cor = cor;
             this.Tabuleiro = tabuleiro;
             this.QuantMovimentos = 0;
         }
 
-        public void IncrementarQuantMovimentos()
-        {
+        public void IncrementarQuantMovimentos() {
             this.QuantMovimentos++;
         }
 
-        public bool ExisteMovimentosPossiveis()
-        {
+        public void DecrementarQuantMovimentos() {
+            this.QuantMovimentos--;
+        }
+
+        public bool ExisteMovimentosPossiveis() {
             bool[,] mat = MovimentosPossiveis();
             for (int i = 0; i < Tabuleiro.Linhas; i++)
             {
@@ -34,8 +35,7 @@
             return false;
         }
 
-        public bool PodeMoverPara(Posicao posicao)
-        {
+        public bool PodeMoverPara(Posicao posicao) {
             return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
         }
 

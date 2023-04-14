@@ -2,9 +2,9 @@
 
 namespace xadrez
 {
-    internal class Bispo : Peca
+    internal class Cavalo : Peca
     {
-        public Bispo(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor) {
+        public Cavalo(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor) {
         }
 
         public override bool[,] MovimentosPossiveis() {
@@ -16,7 +16,7 @@ namespace xadrez
         }
 
         public override string ToString() {
-            return "B";
+            return "C";
         }
     }
 }

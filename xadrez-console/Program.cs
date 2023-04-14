@@ -6,8 +6,7 @@ namespace xadrez_console
 {
     internal class Program
     {
-        static void Main(string[] args)
-        {
+        static void Main(string[] args) {
 
             PartidaXadrez partidaXadrez = new PartidaXadrez();
 
@@ -15,12 +14,7 @@ namespace xadrez_console
             {
                 try
                 {
-                    Console.Clear();
-                    Tela.ImprimeTabuleiro(partidaXadrez.Tabuleiro);
-                    Console.WriteLine();
-                    Console.WriteLine("----------------------------------------");
-                    Console.WriteLine($"Turno: {partidaXadrez.Turno}     Aguadando: {partidaXadrez.JogadorAtual}");
-                    Console.WriteLine("----------------------------------------");
+                    Tela.ImprimirPartida(partidaXadrez);
 
                     Console.Write("Origem: ");
                     Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
@@ -28,12 +22,7 @@ namespace xadrez_console
 
                     bool[,] posicoesPossiveis = partidaXadrez.Tabuleiro.GetPeca(origem).MovimentosPossiveis();
 
-                    Console.Clear();
-                    Tela.ImprimeTabuleiro(partidaXadrez.Tabuleiro, posicoesPossiveis);
-                    Console.WriteLine();
-                    Console.WriteLine("----------------------------------------");
-                    Console.WriteLine($"Turno: {partidaXadrez.Turno}     Aguadando: {partidaXadrez.JogadorAtual}");
-                    Console.WriteLine("----------------------------------------");
+                    Tela.ImprimirPartida(partidaXadrez, posicoesPossiveis);
 
                     Console.Write("Destino: ");
                     Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
@@ -43,7 +32,7 @@ namespace xadrez_console
                 }
                 catch (TabuleiroException e)
                 {
-                    Console.WriteLine("Error: " + e.Message + " Pressione [ENTER] para continuar!");
+                    Console.WriteLine($"Error: {e.Message} Pressione [ENTER] para continuar!");
                     Console.ReadLine();
                 }
             }
