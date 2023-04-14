@@ -1,4 +1,5 @@
 ﻿using tabuleiro;
+using tabuleiro.exceptions;
 using xadrez;
 
 namespace xadrez_console
@@ -7,16 +8,21 @@ namespace xadrez_console
     {
         static void Main(string[] args)
         {
-            Posicao posicao = new Posicao(1, 3);
+            try
+            {
+                Posicao posicao = new Posicao(1, 3);
 
-            Tabuleiro tab = new Tabuleiro(8, 8);
+                Tabuleiro tab = new Tabuleiro(8, 8);
 
-            tab.AddPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
-            tab.AddPeca(new Torre(tab, Cor.Preta), new Posicao(1, 3));
-            tab.AddPeca(new Rei(tab, Cor.Preta), new Posicao(2, 4));
+                tab.AddPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
+                tab.AddPeca(new Torre(tab, Cor.Preta), new Posicao(1, 3));
+                tab.AddPeca(new Rei(tab, Cor.Preta), new Posicao(0, 0));
 
-            Tela.ImprimeTabuleiro(tab);
-
+                Tela.ImprimeTabuleiro(tab);
+            }catch (TabuleiroException e )
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
     }
 }
