@@ -1,4 +1,5 @@
 ﻿using tabuleiro;
+using tabuleiro.exceptions;
 using xadrez_console.Entities.xadrez;
 
 namespace xadrez
@@ -6,8 +7,8 @@ namespace xadrez
     internal class PartidaXadrez
     {
         public Tabuleiro Tabuleiro { get; private set; }
-        private int Turno;
-        private Cor JogadorAtual;
+        public int Turno { get; private set; }
+        public Cor JogadorAtual { get; private set; }
         public bool Terminada { get; private set; }
 
         public PartidaXadrez()
@@ -40,6 +41,51 @@ namespace xadrez
             p.IncrementarQuantMovimentos();
             Peca pecaCapturada = Tabuleiro.RemovePeca(destino);
             Tabuleiro.AddPeca(p, destino);
+        }
+
+        public void RealizaJogada(Posicao origem, Posicao destino)
+        {
+            ExecutaMovimento(origem, destino);
+            Turno++;
+            MudaJogador();
+        }
+
+        public void ValidarPosicaoDeOrigem(Posicao posicao)
+        {
+            if(Tabuleiro.GetPeca(posicao) == null)
+            {
+                throw new TabuleiroException("Não existe peça na posição escolhida!");
+            }
+
+            if(JogadorAtual != Tabuleiro.GetPeca(posicao).Cor)
+            {
+                throw new TabuleiroException("A peça escolhida não é sua!");
+            }
+
+            if (!Tabuleiro.GetPeca(posicao).ExisteMovimentosPossiveis())
+            {
+                throw new TabuleiroException("Não é possivel mover a peça escolhida!");
+            }
+        }
+
+        public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
+        {
+            if (!Tabuleiro.GetPeca(origem).PodeMoverPara(destino))
+            {
+                throw new TabuleiroException("Posição de destino inválida!");
+            }
+        }
+
+        private void MudaJogador()
+        {
+            if(JogadorAtual == Cor.Branca)
+            {
+                JogadorAtual = Cor.Preta;
+            }
+            else
+            {
+                JogadorAtual = Cor.Branca;
+            }
         }
     }
 }

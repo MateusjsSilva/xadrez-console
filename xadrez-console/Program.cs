@@ -1,7 +1,6 @@
 ﻿using tabuleiro;
 using tabuleiro.exceptions;
 using xadrez;
-using xadrez_console.Entities.xadrez;
 
 namespace xadrez_console
 {
@@ -9,32 +8,46 @@ namespace xadrez_console
     {
         static void Main(string[] args)
         {
-            try
-            {
-                PartidaXadrez partidaXadrez = new PartidaXadrez();
 
-                while (!partidaXadrez.Terminada)
+            PartidaXadrez partidaXadrez = new PartidaXadrez();
+
+            while (!partidaXadrez.Terminada)
+            {
+                try
                 {
                     Console.Clear();
                     Tela.ImprimeTabuleiro(partidaXadrez.Tabuleiro);
+                    Console.WriteLine();
+                    Console.WriteLine("----------------------------------------");
+                    Console.WriteLine($"Turno: {partidaXadrez.Turno}     Aguadando: {partidaXadrez.JogadorAtual}");
+                    Console.WriteLine("----------------------------------------");
 
                     Console.Write("Origem: ");
                     Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
+                    partidaXadrez.ValidarPosicaoDeOrigem(origem);
 
                     bool[,] posicoesPossiveis = partidaXadrez.Tabuleiro.GetPeca(origem).MovimentosPossiveis();
 
                     Console.Clear();
                     Tela.ImprimeTabuleiro(partidaXadrez.Tabuleiro, posicoesPossiveis);
+                    Console.WriteLine();
+                    Console.WriteLine("----------------------------------------");
+                    Console.WriteLine($"Turno: {partidaXadrez.Turno}     Aguadando: {partidaXadrez.JogadorAtual}");
+                    Console.WriteLine("----------------------------------------");
 
                     Console.Write("Destino: ");
                     Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
+                    partidaXadrez.ValidarPosicaoDeDestino(origem, destino);
 
-                    partidaXadrez.ExecutaMovimento(origem, destino);
+                    partidaXadrez.RealizaJogada(origem, destino);
                 }
-            }catch (TabuleiroException e )
-            {
-                Console.WriteLine("Error: " + e.Message);
+                catch (TabuleiroException e)
+                {
+                    Console.WriteLine("Error: " + e.Message + " Pressione [ENTER] para continuar!");
+                    Console.ReadLine();
+                }
             }
+
         }
     }
 }
