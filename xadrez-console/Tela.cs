@@ -1,8 +1,5 @@
-﻿using System.ComponentModel;
-using System.Runtime.Intrinsics.X86;
-using tabuleiro;
+﻿using tabuleiro;
 using xadrez;
-using xadrez_console.Entities.xadrez;
 
 namespace xadrez_console
 {
@@ -14,10 +11,20 @@ namespace xadrez_console
             ImprimeTabuleiro(partidaXadrez.Tabuleiro);
             ImprimirPecasCapturadas(partidaXadrez);
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"Turno: {partidaXadrez.Turno}     Aguardando: {partidaXadrez.JogadorAtual}");
-            Console.ForegroundColor = ConsoleColor.Red;
-            if (partidaXadrez.Xeque) Console.WriteLine("Você está em XEQUE!");
-            Console.ForegroundColor = ConsoleColor.Gray;
+           
+            if (!partidaXadrez.Terminada)
+            {
+                Console.WriteLine($"Turno: {partidaXadrez.Turno}     Aguardando: {partidaXadrez.JogadorAtual}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                if (partidaXadrez.Xeque) Console.WriteLine("Você está em XEQUE!");
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Turno: {partidaXadrez.Turno} XEQUEMATE!  Vencedor: {partidaXadrez.JogadorAtual}");
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
             Console.WriteLine("----------------------------------------");
         }
 
@@ -26,10 +33,21 @@ namespace xadrez_console
             ImprimeTabuleiro(partidaXadrez.Tabuleiro, posicoesPossiveis);
             ImprimirPecasCapturadas(partidaXadrez);
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"Turno: {partidaXadrez.Turno}     Aguardando: {partidaXadrez.JogadorAtual}");
-            Console.ForegroundColor = ConsoleColor.Red;
-            if (partidaXadrez.Xeque) Console.WriteLine("Você está em XEQUE!");
-            Console.ForegroundColor = ConsoleColor.Gray;
+
+            if (!partidaXadrez.Terminada)
+            {
+                Console.WriteLine($"Turno: {partidaXadrez.Turno}     Aguardando: {partidaXadrez.JogadorAtual}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                if (partidaXadrez.Xeque) Console.WriteLine("Você está em XEQUE!");
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Turno: {partidaXadrez.Turno} XEQUEMATE!  Vencedor: {partidaXadrez.JogadorAtual}");
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
+
             Console.WriteLine("----------------------------------------");
         }
 

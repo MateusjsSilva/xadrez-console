@@ -36,7 +36,7 @@ namespace xadrez_console
                     Console.ReadLine();
                 }
             }
-
+            Tela.ImprimirPartida(partidaXadrez);
         }
     }
 }
