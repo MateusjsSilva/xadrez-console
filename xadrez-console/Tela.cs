@@ -22,7 +22,7 @@ namespace xadrez_console
             else
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Turno: {partidaXadrez.Turno} XEQUEMATE!  Vencedor: {partidaXadrez.JogadorAtual}");
+                Console.WriteLine($"Turno: {partidaXadrez.Turno}    XEQUEMATE!  Vencedor: {partidaXadrez.JogadorAtual}");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
             Console.WriteLine("----------------------------------------");
@@ -44,7 +44,7 @@ namespace xadrez_console
             else
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Turno: {partidaXadrez.Turno} XEQUEMATE!  Vencedor: {partidaXadrez.JogadorAtual}");
+                Console.WriteLine($"Turno: {partidaXadrez.Turno}    XEQUEMATE!  Vencedor: {partidaXadrez.JogadorAtual}");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
 
