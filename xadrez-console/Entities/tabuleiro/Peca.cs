@@ -14,5 +14,10 @@
             this.Tabuleiro = tabuleiro;
             this.QuantMovimentos = 0;
         }
+
+        public void IncrementarQuantMovimentos()
+        {
+            this.QuantMovimentos++;
+        }
     }
 }

@@ -35,6 +35,17 @@ namespace tabuleiro
             p.Posicao = posicao;
         }
 
+        public Peca RemovePeca(Posicao posicao)
+        {
+            if (!ExistePeca(posicao))
+            {
+                return null;
+            }
+            Peca aux = pecas[posicao.Linha, posicao.Coluna];
+            pecas[posicao.Linha, posicao.Coluna] = null;
+            return aux;
+        }
+
         public bool ExistePeca(Posicao posicao)
         {
             ValidarPosicao(posicao);
@@ -43,7 +54,7 @@ namespace tabuleiro
 
         public bool PosicaoValida(Posicao posicao)
         {
-            if(posicao.Linha < 0 || posicao.Linha >= Linhas || posicao.Coluna < 0 || posicao.Coluna >= Colunas)
+            if (posicao.Linha < 0 || posicao.Linha >= Linhas || posicao.Coluna < 0 || posicao.Coluna >= Colunas)
                 return false;
             return true;
         }
