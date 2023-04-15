@@ -32,24 +32,20 @@ namespace xadrez
             pecas.Add(p);
         }
 
-        public Cor Adversaria(Cor cor) {
+        public static Cor Adversaria(Cor cor) {
             if (cor == Cor.Branca)
                 return Cor.Preta;
-
             return Cor.Branca;
         }
 
-        private Peca Rei(Cor cor) {
+        private Peca? Rei(Cor cor) {
             foreach (Peca peca in GetEmJogo(cor))
                 if (peca is Rei) return peca;
-
             return null;
         }
 
         public bool EstaEmCheck(Cor cor) {
-            Peca r = Rei(cor);
-
-            if (r == null) throw new TabuleiroException("Não tem Rei da cor " + cor + " no tabuleiro!");
+            Peca? r = Rei(cor) ?? throw new TabuleiroException("Não tem Rei da cor " + cor + " no tabuleiro!");
 
             foreach (Peca peca in GetEmJogo(Adversaria(cor)))
             {
@@ -61,9 +57,10 @@ namespace xadrez
         }
 
         public Peca ExecutaMovimento(Posicao origem, Posicao destino) {
-            Peca p = Tabuleiro.RemovePeca(origem);
+            Peca? p = Tabuleiro.RemovePeca(origem);
             p.IncrementarQuantMovimentos();
-            Peca pecaCapturada = Tabuleiro.RemovePeca(destino);
+
+            Peca? pecaCapturada = Tabuleiro.RemovePeca(destino);
             Tabuleiro.AddPeca(p, destino);
 
             if (pecaCapturada != null)
@@ -73,7 +70,7 @@ namespace xadrez
         }
 
         public void RealizaJogada(Posicao origem, Posicao destino) {
-            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+            Peca? pecaCapturada = ExecutaMovimento(origem, destino);
 
             if (EstaEmCheck(JogadorAtual))
             {
@@ -98,7 +95,7 @@ namespace xadrez
         }
 
         private void DesfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada) {
-            Peca p = Tabuleiro.RemovePeca(destino);
+            Peca? p = Tabuleiro.RemovePeca(destino);
             p.DecrementarQuantMovimentos();
             if (pecaCapturada != null)
             {
@@ -148,7 +145,7 @@ namespace xadrez
 
         public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino) {
             if (!Tabuleiro.GetPeca(origem).MovimentoPossivel(destino))
-                throw new TabuleiroException("Posição de destino inválida!");
+                throw new TabuleiroException("Não é possivel mover para esta posição!");
         }
 
         private void MudaJogador() {
@@ -163,9 +160,7 @@ namespace xadrez
             foreach (Peca x in capturadas)
             {
                 if (x.Cor == cor)
-                {
                     aux.Add(x);
-                }
             }
             return aux;
         }
@@ -175,9 +170,7 @@ namespace xadrez
             foreach (Peca x in pecas)
             {
                 if (x.Cor == cor)
-                {
                     aux.Add(x);
-                }
             }
             aux.ExceptWith(GetCapturadas(cor));
             return aux;
@@ -185,27 +178,42 @@ namespace xadrez
 
         private void ColocarPecas() {
             // Brancas
-            AddNewPeca('c', 1, new Torre(Tabuleiro, Cor.Branca));
-            //AddNewPeca('b', 1, new Cavalo(Tabuleiro, Cor.Branca));
-            //AddNewPeca('c', 1, new Bispo(Tabuleiro, Cor.Branca));
-            //AddNewPeca('d', 1, new Rainha(Tabuleiro, Cor.Branca));
-            AddNewPeca('d', 1, new Rei(Tabuleiro, Cor.Branca));
-            //AddNewPeca('f', 1, new Bispo(Tabuleiro, Cor.Branca));
-            //AddNewPeca('g', 1, new Cavalo(Tabuleiro, Cor.Branca));
-            AddNewPeca('h', 7, new Torre(Tabuleiro, Cor.Branca));
+            AddNewPeca('a', 1, new Torre(Tabuleiro, Cor.Branca));
+            AddNewPeca('b', 1, new Cavalo(Tabuleiro, Cor.Branca));
+            AddNewPeca('c', 1, new Bispo(Tabuleiro, Cor.Branca));
+            AddNewPeca('d', 1, new Rainha(Tabuleiro, Cor.Branca));
+            AddNewPeca('e', 1, new Rei(Tabuleiro, Cor.Branca));
+            AddNewPeca('f', 1, new Bispo(Tabuleiro, Cor.Branca));
+            AddNewPeca('g', 1, new Cavalo(Tabuleiro, Cor.Branca));
+            AddNewPeca('h', 1, new Torre(Tabuleiro, Cor.Branca));
 
-
+            AddNewPeca('a', 2, new Peao(Tabuleiro, Cor.Branca));
+            AddNewPeca('b', 2, new Peao(Tabuleiro, Cor.Branca));
+            AddNewPeca('c', 2, new Peao(Tabuleiro, Cor.Branca));
+            AddNewPeca('d', 2, new Peao(Tabuleiro, Cor.Branca));
+            AddNewPeca('e', 2, new Peao(Tabuleiro, Cor.Branca));
+            AddNewPeca('f', 2, new Peao(Tabuleiro, Cor.Branca));
+            AddNewPeca('g', 2, new Peao(Tabuleiro, Cor.Branca));
+            AddNewPeca('h', 2, new Peao(Tabuleiro, Cor.Branca));
 
             // Pretas
-            AddNewPeca('b', 8, new Torre(Tabuleiro, Cor.Preta));
-            //AddNewPeca('b', 8, new Cavalo(Tabuleiro, Cor.Preta));
-            //AddNewPeca('c', 8, new Bispo(Tabuleiro, Cor.Preta));
-            //AddNewPeca('d', 8, new Rainha(Tabuleiro, Cor.Preta));
-            AddNewPeca('a', 8, new Rei(Tabuleiro, Cor.Preta));
-            //AddNewPeca('f', 8, new Bispo(Tabuleiro, Cor.Preta));
-            //AddNewPeca('g', 8, new Cavalo(Tabuleiro, Cor.Preta));
-            //AddNewPeca('h', 8, new Torre(Tabuleiro, Cor.Preta));
+            AddNewPeca('a', 8, new Torre(Tabuleiro, Cor.Preta));
+            AddNewPeca('b', 8, new Cavalo(Tabuleiro, Cor.Preta));
+            AddNewPeca('c', 8, new Bispo(Tabuleiro, Cor.Preta));
+            AddNewPeca('d', 8, new Rainha(Tabuleiro, Cor.Preta));
+            AddNewPeca('e', 8, new Rei(Tabuleiro, Cor.Preta));
+            AddNewPeca('f', 8, new Bispo(Tabuleiro, Cor.Preta));
+            AddNewPeca('g', 8, new Cavalo(Tabuleiro, Cor.Preta));
+            AddNewPeca('h', 8, new Torre(Tabuleiro, Cor.Preta));
 
+            AddNewPeca('a', 7, new Peao(Tabuleiro, Cor.Preta));
+            AddNewPeca('b', 7, new Peao(Tabuleiro, Cor.Preta));
+            AddNewPeca('c', 7, new Peao(Tabuleiro, Cor.Preta));
+            AddNewPeca('d', 7, new Peao(Tabuleiro, Cor.Preta));
+            AddNewPeca('e', 7, new Peao(Tabuleiro, Cor.Preta));
+            AddNewPeca('f', 7, new Peao(Tabuleiro, Cor.Preta));
+            AddNewPeca('g', 7, new Peao(Tabuleiro, Cor.Preta));
+            AddNewPeca('h', 7, new Peao(Tabuleiro, Cor.Preta));
         }
     }
 }

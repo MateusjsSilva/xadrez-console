@@ -4,19 +4,17 @@ namespace xadrez
 {
     internal class Rei : Peca
     {
-        public Rei(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor)
-        {
-        }
+        public Rei(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor) { }
 
-        public override bool[,] MovimentosPossiveis()
-        {
+        public override bool[,] MovimentosPossiveis() {
+            
             bool[,] matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
 
-            Posicao pos = new Posicao(0,0);
+            Posicao pos = new Posicao(0, 0);
 
             // acima
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
-            if(Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // ne
@@ -57,14 +55,12 @@ namespace xadrez
             return matriz;
         }
 
-        public override bool PodeMover(Posicao posicao)
-        {
+        public override bool PodeMover(Posicao posicao) {
             Peca p = Tabuleiro.GetPeca(posicao);
             return p == null || p.Cor != this.Cor;
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return "R";
         }
     }

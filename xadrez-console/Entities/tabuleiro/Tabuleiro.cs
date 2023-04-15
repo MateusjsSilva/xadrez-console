@@ -30,7 +30,7 @@ namespace tabuleiro
             p.Posicao = posicao;
         }
 
-        public Peca RemovePeca(Posicao posicao) {
+        public Peca? RemovePeca(Posicao posicao) {
             if (!ExistePeca(posicao))
                 return null;
 

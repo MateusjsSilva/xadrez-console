@@ -4,10 +4,10 @@ namespace xadrez
 {
     internal class Torre : Peca
     {
-        public Torre(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor) {
-        }
+        public Torre(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor) { }
 
         public override bool[,] MovimentosPossiveis() {
+
             bool[,] matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
 
             Posicao pos = new Posicao(0, 0);
