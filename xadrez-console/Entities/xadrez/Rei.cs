@@ -65,7 +65,7 @@ namespace xadrez
                 {
                     Posicao p1 = new(Posicao.Linha, Posicao.Coluna + 1);
                     Posicao p2 = new(Posicao.Linha, Posicao.Coluna + 2);
-                    if(Tabuleiro.GetPeca(p1) == null && Tabuleiro.GetPeca(p2) == null)
+                    if (Tabuleiro.GetPeca(p1) == null && Tabuleiro.GetPeca(p2) == null)
                     {
                         matriz[Posicao.Linha, Posicao.Coluna + 2] = true;
                     }

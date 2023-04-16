@@ -82,10 +82,10 @@ namespace xadrez
             // #jogada especial en Passant
             if (peca is Peao)
             {
-                if(origem.Coluna != destino.Coluna && pecaCapturada == null)
+                if (origem.Coluna != destino.Coluna && pecaCapturada == null)
                 {
                     Posicao posP;
-                    if(peca.Cor == Cor.Branca)
+                    if (peca.Cor == Cor.Branca)
                         posP = new(destino.Linha + 1, destino.Coluna);
                     else
                         posP = new(destino.Linha - 1, destino.Coluna);
@@ -161,9 +161,9 @@ namespace xadrez
             Peca p = Tabuleiro.GetPeca(destino);
 
             // #jogada especial promoção
-            if(p is Peao)
+            if (p is Peao)
             {
-                if((p.Cor == Cor.Branca && destino.Linha == 0) || (p.Cor == Cor.Preta && destino.Linha == 7))
+                if ((p.Cor == Cor.Branca && destino.Linha == 0) || (p.Cor == Cor.Preta && destino.Linha == 7))
                 {
                     p = Tabuleiro.RemovePeca(destino);
                     _pecas.Remove(p);

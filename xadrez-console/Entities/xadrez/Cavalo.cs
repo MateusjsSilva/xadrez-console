@@ -12,7 +12,7 @@ namespace xadrez
         public override bool[,] MovimentosPossiveis() {
 
             _matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
-            
+
             _posicao = new(0, 0);
 
             VerificaPosicao(-1, -2);

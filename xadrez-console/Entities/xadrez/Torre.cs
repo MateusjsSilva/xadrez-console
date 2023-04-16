@@ -26,7 +26,7 @@ namespace xadrez
             // direita
             _posicao.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
             VerificaPosicaoDireitaEsquerda(+1);
-            
+
             // esquerda
             _posicao.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
             VerificaPosicaoDireitaEsquerda(-1);

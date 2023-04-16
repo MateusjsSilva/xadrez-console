@@ -1,5 +1,4 @@
 ﻿using tabuleiro;
-using tabuleiro.exceptions;
 using xadrez;
 
 namespace xadrez_console
