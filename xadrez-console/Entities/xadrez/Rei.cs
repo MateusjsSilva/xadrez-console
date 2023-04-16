@@ -4,10 +4,10 @@ namespace xadrez
 {
     internal class Rei : Peca
     {
-        private PartidaXadrez partida;
+        private PartidaXadrez _partida;
 
         public Rei(Tabuleiro tabuleiro, Cor cor, PartidaXadrez partida) : base(tabuleiro, cor) {
-            this.partida = partida;
+            this._partida = partida;
         }
 
         public override bool[,] MovimentosPossiveis() {
@@ -18,46 +18,46 @@ namespace xadrez
 
             // acima
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
-            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            if (Tabuleiro.IsPosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // ne
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
-            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            if (Tabuleiro.IsPosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // direita
             pos.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
-            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            if (Tabuleiro.IsPosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // se
             pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
-            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            if (Tabuleiro.IsPosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // abaixo
             pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
-            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            if (Tabuleiro.IsPosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // so
             pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
-            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            if (Tabuleiro.IsPosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // esquerda
             pos.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
-            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            if (Tabuleiro.IsPosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // no
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
-            if (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            if (Tabuleiro.IsPosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // #jogada especial roque
-            if (QuantMovimentos == 0 && !partida.Xeque)
+            if (QuantMovimentos == 0 && !_partida.Xeque)
             {
                 // #jogada especial roque pequeno
                 Posicao posT1 = new(Posicao.Linha, Posicao.Coluna + 3);
@@ -84,8 +84,7 @@ namespace xadrez
                     }
                 }
             }
-
-                return matriz;
+            return matriz;
         }
 
         public override bool PodeMover(Posicao posicao) {

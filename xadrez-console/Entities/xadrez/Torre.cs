@@ -4,68 +4,59 @@ namespace xadrez
 {
     internal class Torre : Peca
     {
+        private bool[,] _matriz;
+        private Posicao _posicao;
+
         public Torre(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor) { }
 
         public override bool[,] MovimentosPossiveis() {
 
-            bool[,] matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
+            _matriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
 
-            Posicao pos = new Posicao(0, 0);
+            _posicao = new(0, 0);
 
             // acima
-            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
-            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
-            {
-                matriz[pos.Linha, pos.Coluna] = true;
-
-                if (Tabuleiro.GetPeca(pos) != null && Tabuleiro.GetPeca(pos).Cor != this.Cor)
-                    break;
-
-                pos.Linha = pos.Linha - 1;
-            }
+            _posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
+            VerificaPosicaoCimaBaixo(-1);
 
             // abaixo
-            pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
-            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
-            {
-                matriz[pos.Linha, pos.Coluna] = true;
-
-                if (Tabuleiro.GetPeca(pos) != null && Tabuleiro.GetPeca(pos).Cor != this.Cor)
-                    break;
-
-                pos.Linha = pos.Linha + 1;
-            }
+            _posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
+            VerificaPosicaoCimaBaixo(+1);
 
             // direita
-            pos.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
-            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
-            {
-                matriz[pos.Linha, pos.Coluna] = true;
-
-                if (Tabuleiro.GetPeca(pos) != null && Tabuleiro.GetPeca(pos).Cor != this.Cor)
-                    break;
-
-                pos.Coluna = pos.Coluna + 1;
-            }
-
+            _posicao.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
+            VerificaPosicaoDireitaEsquerda(+1);
+            
             // esquerda
-            pos.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
-            while (Tabuleiro.PosicaoValida(pos) && PodeMover(pos))
+            _posicao.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+            VerificaPosicaoDireitaEsquerda(-1);
+
+            return _matriz;
+        }
+
+        private void VerificaPosicaoCimaBaixo(int modLinha) {
+            while (Tabuleiro.IsPosicaoValida(_posicao) && PodeMover(_posicao))
             {
-                matriz[pos.Linha, pos.Coluna] = true;
-
-                if (Tabuleiro.GetPeca(pos) != null && Tabuleiro.GetPeca(pos).Cor != this.Cor)
+                _matriz[_posicao.Linha, _posicao.Coluna] = true;
+                if (Tabuleiro.GetPeca(_posicao) != null && Tabuleiro.GetPeca(_posicao).Cor != this.Cor)
                     break;
-
-                pos.Coluna = pos.Coluna - 1;
+                _posicao.Linha += modLinha;
             }
+        }
 
-            return matriz;
+        private void VerificaPosicaoDireitaEsquerda(int modColuna) {
+            while (Tabuleiro.IsPosicaoValida(_posicao) && PodeMover(_posicao))
+            {
+                _matriz[_posicao.Linha, _posicao.Coluna] = true;
+                if (Tabuleiro.GetPeca(_posicao) != null && Tabuleiro.GetPeca(_posicao).Cor != this.Cor)
+                    break;
+                _posicao.Coluna += modColuna;
+            }
         }
 
         public override bool PodeMover(Posicao posicao) {
             Peca p = Tabuleiro.GetPeca(posicao);
-            return p == null || p.Cor != this.Cor;
+            return p == null || p.Cor != Cor;
         }
 
         public override string ToString() {

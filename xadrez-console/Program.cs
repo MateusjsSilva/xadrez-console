@@ -14,16 +14,16 @@ namespace xadrez_console
             {
                 try
                 {
-                    Tela.ImprimirPartida(partidaXadrez);
+                    Tela.ImprimirPartida(partidaXadrez, null);
 
-                    Console.Write("Origem: ");
-                    Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
+                    Console.Write(" Origem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
                     partidaXadrez.ValidarPosicaoDeOrigem(origem);
 
                     Tela.ImprimirPartida(partidaXadrez, partidaXadrez.Tabuleiro.GetPeca(origem).MovimentosPossiveis());
 
-                    Console.Write("Destino: ");
-                    Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
+                    Console.Write(" Destino: ");
+                    Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
                     partidaXadrez.ValidarPosicaoDeDestino(origem, destino);
 
                     partidaXadrez.RealizaJogada(origem, destino);
@@ -34,7 +34,7 @@ namespace xadrez_console
                     Console.ReadLine();
                 }
             }
-            Tela.ImprimirPartida(partidaXadrez);
+            Tela.ImprimirPartida(partidaXadrez, null);
         }
     }
 }

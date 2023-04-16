@@ -12,12 +12,12 @@ namespace xadrez
             this.Linha = linha;
         }
 
-        public Posicao toPosicao() {
+        public Posicao ToPosicao() {
             return new Posicao(8 - Linha, Coluna - 'a');
         }
 
         public override string ToString() {
-            return "" + Coluna + Linha;
+            return Coluna + "" + Linha;
         }
     }
 }

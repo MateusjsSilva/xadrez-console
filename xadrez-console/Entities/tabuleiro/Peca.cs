@@ -2,7 +2,7 @@
 {
     abstract internal class Peca
     {
-        public Posicao? Posicao { get; set; }
+        public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
         public int QuantMovimentos { get; protected set; }
         public Tabuleiro Tabuleiro { get; set; }
@@ -14,21 +14,13 @@
             this.QuantMovimentos = 0;
         }
 
-        public void IncrementarQuantMovimentos() {
-            this.QuantMovimentos++;
-        }
-
-        public void DecrementarQuantMovimentos() {
-            this.QuantMovimentos--;
-        }
-
         public bool ExisteMovimentosPossiveis() {
-            bool[,] mat = MovimentosPossiveis();
+            bool[,] matriz = MovimentosPossiveis();
             for (int i = 0; i < Tabuleiro.Linhas; i++)
             {
                 for (int j = 0; j < Tabuleiro.Colunas; j++)
                 {
-                    if (mat[i, j])
+                    if (matriz[i, j])
                         return true;
                 }
             }
@@ -37,6 +29,14 @@
 
         public bool MovimentoPossivel(Posicao posicao) {
             return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
+        }
+
+        public void IncrementarQuantMovimentos() {
+            this.QuantMovimentos++;
+        }
+
+        public void DecrementarQuantMovimentos() {
+            this.QuantMovimentos--;
         }
 
         public abstract bool[,] MovimentosPossiveis();

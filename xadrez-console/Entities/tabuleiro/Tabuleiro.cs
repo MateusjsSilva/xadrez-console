@@ -6,37 +6,30 @@ namespace tabuleiro
     {
         public int Linhas { get; set; }
         public int Colunas { get; set; }
-        public Peca[,] pecas;
+
+        private Peca[,] _pecas;
 
         public Tabuleiro(int linhas, int colunas) {
             this.Linhas = linhas;
             this.Colunas = colunas;
-            pecas = new Peca[linhas, colunas];
+            this._pecas = new Peca[linhas, colunas];
         }
 
-        public Peca GetPeca(int linha, int coluna) {
-            return pecas[linha, coluna];
-        }
-
-        public Peca GetPeca(Posicao posicao) {
-            return pecas[posicao.Linha, posicao.Coluna];
-        }
-
-        public void AddPeca(Peca p, Posicao posicao) {
+        public void AddPeca(Peca peca, Posicao posicao) {
             if (ExistePeca(posicao))
                 throw new TabuleiroException("Já existe uma peça nessa posição!");
 
-            pecas[posicao.Linha, posicao.Coluna] = p;
-            p.Posicao = posicao;
+            _pecas[posicao.Linha, posicao.Coluna] = peca;
+            peca.Posicao = posicao;
         }
 
-        public Peca? RemovePeca(Posicao posicao) {
+        public Peca RemovePeca(Posicao posicao) {
             if (!ExistePeca(posicao))
                 return null;
 
-            Peca aux = pecas[posicao.Linha, posicao.Coluna];
-            pecas[posicao.Linha, posicao.Coluna] = null;
-            return aux;
+            Peca auxPeca = _pecas[posicao.Linha, posicao.Coluna];
+            _pecas[posicao.Linha, posicao.Coluna] = null;
+            return auxPeca;
         }
 
         public bool ExistePeca(Posicao posicao) {
@@ -44,15 +37,23 @@ namespace tabuleiro
             return GetPeca(posicao) != null;
         }
 
-        public bool PosicaoValida(Posicao posicao) {
+        public bool IsPosicaoValida(Posicao posicao) {
             if (posicao.Linha < 0 || posicao.Linha >= Linhas || posicao.Coluna < 0 || posicao.Coluna >= Colunas)
                 return false;
             return true;
         }
 
         public void ValidarPosicao(Posicao posicao) {
-            if (!PosicaoValida(posicao))
+            if (!IsPosicaoValida(posicao))
                 throw new TabuleiroException("Posição invalida!");
+        }
+
+        public Peca GetPeca(int linha, int coluna) {
+            return _pecas[linha, coluna];
+        }
+
+        public Peca GetPeca(Posicao posicao) {
+            return _pecas[posicao.Linha, posicao.Coluna];
         }
     }
 }
